@@ -1,0 +1,34 @@
+name: Update Leaderboard
+on:
+  issues:
+    types: [closed]
+  schedule:
+    - cron: "0 12 * * *"  # Daily update at noon UTC
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: read
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install Dependencies
+        run: pip install pygithub
+
+      - name: Run Leaderboard Update
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python update_leaderboard.py
+
+      - name: Commit Changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update Leaderboard"
