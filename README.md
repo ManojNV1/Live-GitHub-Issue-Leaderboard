@@ -1,6 +1,9 @@
 ## 🏆 Issue Solver Leaderboard
 
 <!-- LEADERBOARD_START -->
+| Rank | User | Points |
+|------|------|--------|
+
 <!-- LEADERBOARD_END -->
 
 
